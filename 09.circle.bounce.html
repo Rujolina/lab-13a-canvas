@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="sketch" width="480" height="720"></canvas>
+    <script>
+    document.addEventListener('DOMContentLoaded', main);
+
+    var sketch;
+    var context;
+    var circle = {'x':0, 'y':100, 'r':25};
+    //delta x -- how much x changes each time we run animate()
+    var dy = 2;
+    var fps = 10;
+    var acc = 0.1;
+    var vel = 0.9;
+
+    function main() {
+      sketch = document.getElementById('sketch');
+			context = sketch.getContext("2d");
+      circle = {'x':25, 'y':100, 'r':25};
+      setInterval(animate, fps);
+    }
+
+    function animate() {
+      context.clearRect(0, 0, sketch.offsetWidth, sketch.offsetHeight);
+      draw_circle(circle.x, circle.y, circle.r);
+      circle.y = circle.y + dy;
+      if (circle.y > sketch.offsetHeight - dy - circle.r){
+        dy = dy * -1 + acc - 1
+      }
+      if (circle.y < circle.r - dy){
+        dy = 2
+        acc = acc
+      }
+      if (MAth.abs(dy) < min_dy_val) {
+        dy = 0
+        acc = 0
+      }
+    }
+
+    function draw_circle(x, y, r) {
+      context.beginPath();
+		  context.arc(x, y, r, 0, 2 * Math.PI, true);
+		  context.closePath();
+		  context.fill();
+    }
+    </script>
+  </body>
+</html>
